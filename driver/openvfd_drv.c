@@ -540,9 +540,24 @@ static ssize_t led_off_store(struct device *dev,
 	return size;
 }
 
+static ssize_t custom_cmd_do(struct device *dev,
+		struct device_attribute *attr, char *buf)
+{
+	return scnprintf(buf, PAGE_SIZE, "radio status is 0x%x\n", pdata->dev->status_led_mask);
+}
+
+static ssize_t custom_cmd_store(struct device *dev,
+		struct device_attribute *attr, const char *buf, size_t size)
+{
+	//mutex_lock(&mutex);
+	//controller->set_icon(buf, 0);
+	//mutex_unlock(&mutex);
+	return size;
+}
 static DEVICE_ATTR(led_cmd , S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP, led_cmd_show , led_cmd_store);
 static DEVICE_ATTR(led_on , S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP, led_on_show , led_on_store);
 static DEVICE_ATTR(led_off , S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP, led_off_show , led_off_store);
+static DEVICE_ATTR(custom_cmd , S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP, custom_cmd_do , custom_cmd_store);																								   
 
 #if defined(CONFIG_HAS_EARLYSUSPEND) || defined(CONFIG_AMLOGIC_LEGACY_EARLY_SUSPEND)
 static void openvfd_suspend(struct early_suspend *h)
@@ -890,6 +905,7 @@ static int openvfd_driver_probe(struct platform_device *pdev)
 	device_create_file(kp->cdev.dev, &dev_attr_led_on);
 	device_create_file(kp->cdev.dev, &dev_attr_led_off);
 	device_create_file(kp->cdev.dev, &dev_attr_led_cmd);
+	device_create_file(kp->cdev.dev, &dev_attr_custom_cmd);												  
 	init_controller(pdata->dev);
 #if 0
 	// TODO: Display 'boot' during POST/boot.
