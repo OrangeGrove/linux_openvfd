@@ -98,6 +98,9 @@ static unsigned char fd650_init(void)
 			ledCodes = LED_decode_tab2;
 			break;
 	}
+	
+	
+	
 	return 1;
 }
 

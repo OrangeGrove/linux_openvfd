@@ -1,4 +1,3 @@
-CONFIG_MODULE_SIG=n
 
 default:
 	obj-m += driver/openvfd.o

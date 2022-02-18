@@ -1,6 +1,8 @@
+CONFIG_MODULE_SIG=n
+
 ifeq ($(KERNELRELEASE),)
 		PWD = $(shell pwd)
-	        KERNELDIR = ../../../
+	        KERNELDIR = /lib/modules/$(shell uname -r)/build
 modules:
 	        $(MAKE) -C $(KERNELDIR) M=$(PWD) ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- modules
 

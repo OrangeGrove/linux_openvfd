@@ -907,7 +907,7 @@ static int openvfd_driver_probe(struct platform_device *pdev)
 	device_create_file(kp->cdev.dev, &dev_attr_led_cmd);
 	device_create_file(kp->cdev.dev, &dev_attr_custom_cmd);												  
 	init_controller(pdata->dev);
-#if 0
+#if 1
 	// TODO: Display 'boot' during POST/boot.
 	// 'boot'
 	//  1 1 0  0 1 1 1  b => 0x7C
